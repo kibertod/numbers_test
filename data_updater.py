@@ -5,6 +5,7 @@ from datetime import date, timedelta
 from xml.etree import ElementTree
 from time import sleep
 import telebot
+import os
 
 
 bot = telebot.TeleBot("5411411957:AAHytHjnViT_oOvirMHa1H_1P_RSBCctH5U", parse_mode=None)
@@ -12,7 +13,7 @@ bot = telebot.TeleBot("5411411957:AAHytHjnViT_oOvirMHa1H_1P_RSBCctH5U", parse_mo
 
 def update():
     data = json.loads(
-        get("https://sheets.googleapis.com/v4/spreadsheets/1RVSeEPm7xwWO9kQ_PqSF7-kljngOUuckJdGxQt9BOP8/"
+        get(f"https://sheets.googleapis.com/v4/spreadsheets/{os.environ.get('GOOGLE_API_KEY')}/"
             "values/Лист1?key=AIzaSyDODmMUDqS6eLfk7jYDpu9asp_cTsDxUfU").text
     )
 

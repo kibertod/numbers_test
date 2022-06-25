@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=numbers
+      - POSTGRES_USER=numbers
+      - POSTGRES_PASSWORD=numbers
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:9000
+    volumes:
+      - .:/code
+    ports:
+      - "9000:9000"
+    environment:
+      - GOOGLE_API_KEY=1RVSeEPm7xwWO9kQ_PqSF7-kljngOUuckJdGxQt9BOP8
+      - DJANGO_SECRET=django-insecure-s6=v3)d@_jbmt4amkdk2vd%)2m(_zkw02j4-nr8=w+h#djamu=
+      - POSTGRES_NAME=numbers
+      - POSTGRES_USER=numbers
+      - POSTGRES_PASSWORD=numbers
+    depends_on:
+      - db
