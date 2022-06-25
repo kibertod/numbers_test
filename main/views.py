@@ -15,8 +15,7 @@ def index(request):
             "id": order.id,
             "usd_price": order.usd_price,
             "rub_price": order.rub_price,
-            "term": order.term.strftime("%d/%m/%y"),
-            "date": order.date.strftime("%d/%m/%y")
+            "term": order.term.strftime("%d/%m/%y")
         })
 
     return render(request, "index.html", data)

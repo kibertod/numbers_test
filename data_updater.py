@@ -31,6 +31,8 @@ def update():
     else:
         usd_rate = 53
 
+    active_orders = []
+
     for value in data.get("values")[1:]:
 
         order_id = value[1]
@@ -38,13 +40,14 @@ def update():
         rub_price = round(usd_price * usd_rate, 2)
         term = date.fromisoformat("-".join(value[3].split(".")[::-1]))
 
+        active_orders.append(order_id)
+
         if not Order.objects.filter(id=order_id):
             order = Order.objects.create(
                 id=order_id,
                 usd_price=usd_price,
                 rub_price=rub_price,
                 term=term,
-                date=date.today()
             )
         else:
             order = Order.objects.get(id=order_id)
@@ -59,19 +62,21 @@ def update():
 
             if date.today() == order.term and not order.expires_today:
                 order.expires_today = True
-                order.save()
 
                 for user in TelegramUser.objects.all():
                     bot.send_message(user.tg_id, f"Сегодня истекает срок поставки №{order.id}")
 
             elif date.today() == order.term + timedelta(days=1):
                 order.expired = True
-                order.save()
 
                 for user in TelegramUser.objects.all():
                     bot.send_message(user.tg_id, f"Срок поставки №{order.id} истёк")
 
             order.save()
+
+    for order in Order.objects.all():
+        if order.id not in active_orders:
+            order.delete()
 
 
 def start():

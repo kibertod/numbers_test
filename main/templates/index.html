@@ -17,7 +17,6 @@
                 <th scope="col">Заказ №</th>
                 <th scope="col">Стоимость</th>
                 <th scope="col">Срок поставки</th>
-                <th scope="col">Дата создания записи</th>
             </tr>
         </thead>
         <tbody>
@@ -27,7 +26,6 @@
                     <th scope="col">{{ order.id }}</th>
                     <th scope="col">{{ order.usd_price }}$ / {{ order.rub_price }}₽</th>
                     <th scope="col">{{ order.term }}</th>
-                    <th scope="col">{{ order.date }}</th>
                 </tr>
             {% endfor %}
         </tbody>

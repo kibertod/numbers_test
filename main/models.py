@@ -5,7 +5,6 @@ class Order(Model):
     usd_price = FloatField()
     rub_price = FloatField()
     term = DateField()
-    date = DateField()
     expires_today = BooleanField(default=False)
     expired = BooleanField(default=False)
 
