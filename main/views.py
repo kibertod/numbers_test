@@ -4,6 +4,7 @@ from datetime import date
 
 
 def index(request):
+    # собираем данные о поставках из базы
     data = {"orders": []}
     orders = data["orders"]
 
@@ -18,5 +19,6 @@ def index(request):
             "term": order.term.strftime("%d/%m/%y")
         })
 
+    # возвращаем таблицу с данными
     return render(request, "index.html", data)
 
